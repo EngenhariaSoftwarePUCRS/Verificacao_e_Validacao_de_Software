@@ -1,6 +1,10 @@
+import java.io.File;
+import java.util.Scanner;
+
 public class App {
     public static void main(String[] args) throws Exception {
         testRomanNumerals();
+        testCalculator();
     }
 
     private static void evaluate(int output, int expected) {
@@ -29,5 +33,40 @@ public class App {
 
         int output_IVVI = rn.convert("IVVI");
         evaluate(output_IVVI, -1);
+    }
+
+    private static void testCalculator() {
+        Calculator calc = new Calculator();
+
+        File testCasesREADME = new File("TestCases\\Calculator.md");
+        try (Scanner readmeScanner = new Scanner(testCasesREADME)) {
+            // Skip header
+            readmeScanner.nextLine();
+            // Skip empty line
+            readmeScanner.nextLine();
+            // File structure = | Input | Expected | Actual | Result |
+            while (readmeScanner.hasNextLine()) {
+                // Get first column
+                String line = readmeScanner.nextLine();
+                String[] columns = line.split("\\|");
+                String input = columns[1].replaceAll(" ", "");
+                if (input.contains("MAX_INTEGER")) {
+                    final String MAX_INT = Integer.toString(Integer.MAX_VALUE);
+                    input = input.replaceAll("MAX_INTEGER", MAX_INT);
+                }
+                String expectedOutput = columns[2].replaceAll(" ", "");
+                int expected;
+                try {
+                    expected = Integer.parseInt(expectedOutput);
+                } catch (NumberFormatException e) {
+                    expected = -1;
+                }
+                int output = calc.evaluate(input);
+                evaluate(output, expected);
+            }
+        } catch (Exception e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 }
