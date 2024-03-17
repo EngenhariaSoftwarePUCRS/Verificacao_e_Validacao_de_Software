@@ -5,6 +5,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         testRomanNumerals();
         testCalculator();
+        testIntQueue();
     }
 
     private static void evaluate(int output, int expected) {
@@ -67,6 +68,41 @@ public class App {
         } catch (Exception e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
+        }
+    }
+
+    private static void testIntQueue() {
+        System.out.println("\nTesting BoundedIntQueue");
+        IBoundedIntQueue queue = new BoundedIntQueue(1);
+
+        try {
+            queue.addLast(1);
+            queue.addLast(2);
+        } catch (QueueFullException e) {
+            System.out.println("Queue is full!");
+        }
+
+        try {
+            queue.removeFirst();
+            queue.removeFirst();
+        } catch (QueueEmptyException e) {
+            System.out.println("Queue is empty!");
+        }
+
+        try {
+            new BoundedIntQueue(-1);
+        } catch (NegativeArraySizeException e) {
+            System.out.println("Queue size must be greater than 0!");
+        }
+
+        try {
+            queue.addLast(1);
+            queue.removeFirst();
+        }
+        catch (QueueEmptyException e) {}
+        catch (QueueFullException e) {}
+        finally {
+            System.out.println("Tests passed!");
         }
     }
 }
