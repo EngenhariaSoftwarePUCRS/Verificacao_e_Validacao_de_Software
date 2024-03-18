@@ -50,7 +50,7 @@ public class Barca {
         }
         // Se tem até 100 passageiros, verifica se fila <= 20
         if (qtdadeAssentosOcupados <= 100 && fila > 20) {
-            return 1;
+            return 2;
         }
         // Se tem mais de 100 e até de 200 passageiros, verifica se fila >= 40
         if (qtdadeAssentosOcupados > 100 && qtdadeAssentosOcupados <= 200 && fila < 40) {
