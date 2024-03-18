@@ -1,7 +1,7 @@
 package com.vev;
 
 public class Ranking {
-    private final int MAXSCORES = 20;
+    private final int MAXSCORES = 10;
     private Record[] scores;
     private int pos;
 
