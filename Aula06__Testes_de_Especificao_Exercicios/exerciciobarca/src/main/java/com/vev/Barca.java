@@ -33,7 +33,7 @@ public class Barca {
      */
     public int ocupaLugar(String assentoInformado) {
         // Verifica se é um assento valido
-        if (Pattern.matches("[F][0-8]{2}[A][0-8]{2}", assentoInformado) == false) {
+        if (!Pattern.matches("[F][0-8]{2}[A][0-8]{2}", assentoInformado)) {
             return 0;
         }
         int fila = Integer.parseInt(assentoInformado.substring(1, 3));
@@ -60,5 +60,12 @@ public class Barca {
         assentos[fila][assento] = true;
         qtdadeAssentosOcupados++;
         return 3;
+    }
+
+    public static void main(String[] args) {
+        Barca barca = new Barca();
+        System.out.println(barca.ocupaLugar("F02A12"));
+        System.out.println(barca.ocupaLugar("F45A01"));
+        System.out.println(barca.ocupaLugar("F33A18"));
     }
 }
