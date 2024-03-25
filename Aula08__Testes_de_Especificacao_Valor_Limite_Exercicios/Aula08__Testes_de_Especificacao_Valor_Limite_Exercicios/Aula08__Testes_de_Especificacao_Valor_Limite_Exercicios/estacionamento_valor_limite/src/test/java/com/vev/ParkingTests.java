@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 
 public class ParkingTests {
+    private Parking parking;
     
     @Test
     public void upTo15MinutesIsFree() {
