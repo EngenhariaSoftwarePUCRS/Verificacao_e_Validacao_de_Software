@@ -10,7 +10,7 @@ public class Parking {
     /** Has 50% discount */
     private boolean isVIP;
 
-    private Parking(Date entryTime, Date exitTime, boolean isVIP) {
+    public Parking(Date entryTime, Date exitTime, boolean isVIP) {
         if (entryTime.after(exitTime)) {
             throw new IllegalArgumentException("Entry time must be before exit time");
         }
@@ -62,20 +62,16 @@ public class Parking {
         int entryDay = entryTime.getDate();
         int exitDay = exitTime.getDate();
         int differenceDays = exitDay - entryDay;
-        boolean differentDays = differenceDays > 0;
         boolean enteredAfterMidnight = entryTimeHours >= 0 && entryTimeHours < 2;
         boolean exitBeforeClosing = exitTimeHours < 2;
         boolean exitAfterReOpening = exitTimeHours >= 8;
 
-        if (differentDays && differenceDays > 1) {
+        if (differenceDays > 1) {
             return true;
-        } else if (differentDays && differenceDays == 1) {
+        } else if (differenceDays == 1) {
             return enteredAfterMidnight || exitAfterReOpening;
-        } else if (!differentDays) {
-            if (enteredAfterMidnight && exitBeforeClosing) {
-                return false;
-            }
-            return enteredAfterMidnight && exitAfterReOpening;
+        } else if (differenceDays == 0) {
+            return enteredAfterMidnight && (!exitBeforeClosing || exitAfterReOpening);
         } else {
             return false;
         }
